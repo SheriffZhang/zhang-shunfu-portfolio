@@ -1,5 +1,5 @@
 {
-  "framework": "other",
+  "framework": "node",
   "buildCommand": "npm run build && node scripts/prepare-vercel.mjs",
   "outputDirectory": "public",
   "rewrites": [{ "source": "/(.*)", "destination": "/api/index" }]
