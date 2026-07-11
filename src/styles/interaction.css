@@ -1,0 +1,5 @@
+/* Keep the navigation above the full-height hero interaction layer. */
+.hero .nav{z-index:60!important;isolation:isolate;pointer-events:auto!important}
+.hero .nav a,.hero .nav-links{position:relative;z-index:2;pointer-events:auto!important}
+.cinematic-hero{pointer-events:none}
+.cinematic-hero .journey-hero{pointer-events:auto}
