@@ -9,6 +9,7 @@ const projects = [
     index: "01",
     title: "AI 创意视觉探索",
     category: "AI 视觉 · 概念项目",
+    summary: "用提示词、材质实验和后期精修，建立一套透明流动的未来感主视觉。",
     image: "/projects/ai-visual-exploration.png",
     className: "project-wide",
   },
@@ -17,7 +18,8 @@ const projects = [
     group: "品牌设计",
     index: "02",
     title: "品牌视觉系统设计",
-    category: "品牌设计 · 代表方向",
+    category: "品牌主视觉 · 概念提案",
+    summary: "以几何标识、冷白空间和钴蓝强调色，建立科技品牌的核心视觉气质。",
     image: "/projects/brand-visual-system.png",
     className: "",
   },
@@ -27,12 +29,40 @@ const projects = [
     index: "03",
     title: "数字传播视觉设计",
     category: "视觉设计 · 代表方向",
+    summary: "围绕网页、移动端与社媒切片，梳理跨屏内容的阅读节奏和视觉层级。",
     image: "/projects/digital-communication-system.png",
     className: "",
   },
-  {slug:"cultural-poster-series",group:"视觉设计",index:"04",title:"城市记忆海报计划",category:"海报设计 · 原创概念项目",image:"/projects/cultural-poster-series.png",className:"project-wide"},
-  {slug:"tea-packaging-system",group:"品牌设计",index:"05",title:"当代茶品牌包装",category:"包装设计 · 原创概念项目",image:"/projects/tea-packaging-system.png",className:""},
-  {slug:"motion-identity",group:"AI 视觉",index:"06",title:"生成式动态识别",category:"动态视觉 · 原创概念项目",image:"/projects/motion-identity.png",className:""},
+  {
+    slug: "cultural-poster-series",
+    group: "视觉设计",
+    index: "04",
+    title: "城市记忆海报计划",
+    category: "海报设计 · 原创概念项目",
+    summary: "以城市影像、粗粝纹理和朱红结构，完成一组具有展览感的系列海报。",
+    image: "/projects/cultural-poster-series.png",
+    className: "project-wide",
+  },
+  {
+    slug: "tea-packaging-system",
+    group: "品牌设计",
+    index: "05",
+    title: "当代茶品牌包装",
+    category: "包装设计 · 原创概念项目",
+    summary: "把茶芽、纸张肌理和礼赠场景转化为包装系统，强调自然与品质感。",
+    image: "/projects/tea-packaging-system.png",
+    className: "",
+  },
+  {
+    slug: "motion-identity",
+    group: "AI 视觉",
+    index: "06",
+    title: "生成式动态识别",
+    category: "动态视觉 · 原创概念项目",
+    summary: "用金属形态、粒子轨迹和循环规则，探索可运动、可拆分的动态识别语言。",
+    image: "/projects/motion-identity.png",
+    className: "",
+  },
 ];
 
 const strengths = [
@@ -52,10 +82,11 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const scrollToSection = (id: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    const target = document.getElementById(id);
+    const target = document.getElementById(id === "work" ? "work-anchor" : id);
     if (!target) return;
     const navHeight = document.querySelector(".nav")?.getBoundingClientRect().height ?? 68;
-    const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 18;
+    const offset = id === "home" ? 0 : navHeight + 46;
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
     window.history.replaceState(null, "", `#${id}`);
     window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
     setMenuOpen(false);
@@ -96,8 +127,8 @@ export default function Home() {
     if (window.location.hash) {
       const id = window.location.hash.slice(1);
       const timer = setTimeout(() => {
-        const target = document.getElementById(id);
-        if (target) window.scrollTo({ top: Math.max(0, target.offsetTop - 90), behavior: "smooth" });
+        const target = document.getElementById(id === "work" ? "work-anchor" : id);
+        if (target) window.scrollTo({ top: Math.max(0, target.offsetTop - 114), behavior: "smooth" });
       }, 180);
       return () => clearTimeout(timer);
     }
@@ -192,12 +223,12 @@ export default function Home() {
       </section>
 
       <section className="work section" id="work">
-        <div className="shell"><header className="section-head"><span>02 / 精选作品</span><p>精选项目</p></header>
+        <div className="shell"><header className="section-head" id="work-anchor"><span>02 / 精选作品</span><p>精选项目</p></header>
           <div className="work-title"><h2>作品是思考<br />留下的<em>痕迹。</em></h2><p>六组原创<br />概念作品</p></div>
           <div className="project-filters" role="group" aria-label="项目分类">{["全部","品牌设计","视觉设计","AI 视觉"].map((item)=><button key={item} className={projectFilter===item?"active":""} onClick={()=>setProjectFilter(item)}>{item}</button>)}</div>
           <div className="project-grid">{projects.filter((p)=>projectFilter==="全部"||p.group===projectFilter).map((p) => <a href={`/projects/${p.slug}`} className={`project ${p.className}`} key={p.index} aria-label={`查看项目：${p.title}`}>
             <div className="project-image"><img src={p.image} alt={p.title} /><span className="view">查看<br />项目 ↗</span></div>
-            <div className="project-meta"><span>{p.index}</span><h3>{p.title}</h3><p>{p.category}</p></div>
+            <div className="project-meta"><span>{p.index}</span><h3>{p.title}</h3><p>{p.category}</p><small>{p.summary}</small></div>
           </a>)}</div>
         </div>
       </section>
@@ -216,7 +247,7 @@ export default function Home() {
         <p className="kicker light">让我们一起创造有意义的作品。</p>
         <h2>有想法？<br /><em>一起聊聊。</em></h2>
         <a className="mail-link" href="mailto:sheriff001@foxmail.com" aria-label="发送邮件给张顺富">SHERIFF001@FOXMAIL.COM <span>↗</span></a>
-        <div className="footer-base"><div className="logo invert"><span>ZS</span><i /></div><p>张顺富<br />视觉 / AI / 品牌设计师</p><p><a href="tel:+8618281889843" aria-label="拨打张顺富的电话">182 8188 9843</a><br />中国 · 成都</p><p className="right">© 2025 保留所有权利<br />以好奇心驱动设计</p></div>
+        <div className="footer-base"><div className="logo invert"><span>ZS</span><i /></div><p>张顺富<br />视觉 / AI / 品牌设计师</p><p><a href="tel:+8618281889843" aria-label="拨打张顺富的电话">182 8188 9843</a><br />中国 · 成都</p><p className="right">© 2026 保留所有权利<br />以好奇心驱动设计</p></div>
       </div></footer>
       <button className={`back-top ${showTop ? "show" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="返回顶部"><span>↑</span><small>顶部</small></button>
     </main>
