@@ -79,17 +79,32 @@ export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showTop, setShowTop] = useState(false);
   const [projectFilter, setProjectFilter] = useState("全部");
+  const [projectQuery, setProjectQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const projectSearchRef = useRef<HTMLInputElement>(null);
+  const getSectionAnchor = (id: string) => {
+    if (id === "work") return document.getElementById("work-anchor");
+    if (id === "contact") return document.querySelector("#contact .footer-inner > .kicker") ?? document.getElementById("contact");
+    if (id === "about" || id === "strengths") return document.querySelector(`#${id} > .section-head`) ?? document.getElementById(id);
+    return document.getElementById(id);
+  };
   const scrollToSection = (id: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    const target = document.getElementById(id === "work" ? "work-anchor" : id);
+    const target = getSectionAnchor(id);
     if (!target) return;
     const navHeight = document.querySelector(".nav")?.getBoundingClientRect().height ?? 68;
-    const offset = id === "home" ? 0 : navHeight + 46;
+    const offset = id === "home" ? 0 : navHeight + 24;
     const top = target.getBoundingClientRect().top + window.scrollY - offset;
     window.history.replaceState(null, "", `#${id}`);
     window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
     setMenuOpen(false);
+  };
+  const updateProjectFilter = (nextFilter: string) => {
+    if (nextFilter === projectFilter) return;
+    const commit = () => setProjectFilter(nextFilter);
+    const documentWithTransition = document as Document & { startViewTransition?: (callback: () => void) => void };
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && documentWithTransition.startViewTransition) documentWithTransition.startViewTransition(commit);
+    else commit();
   };
 
   useEffect(() => {
@@ -127,12 +142,72 @@ export default function Home() {
     if (window.location.hash) {
       const id = window.location.hash.slice(1);
       const timer = setTimeout(() => {
-        const target = document.getElementById(id === "work" ? "work-anchor" : id);
-        if (target) window.scrollTo({ top: Math.max(0, target.offsetTop - 114), behavior: "smooth" });
+        const target = getSectionAnchor(id);
+        const navHeight = document.querySelector(".nav")?.getBoundingClientRect().height ?? 68;
+        if (target) window.scrollTo({ top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - navHeight - 24), behavior: "smooth" });
       }, 180);
       return () => clearTimeout(timer);
     }
   }, []);
+
+  useEffect(() => {
+    const handleShortcut = (event: KeyboardEvent) => {
+      const element = event.target as HTMLElement | null;
+      if (event.key.toLowerCase() !== "f" || element?.matches("input, textarea, select, [contenteditable='true']")) return;
+      event.preventDefault();
+      const target = document.getElementById("work-anchor");
+      const navHeight = document.querySelector(".nav")?.getBoundingClientRect().height ?? 68;
+      if (target) {
+        window.scrollTo({
+          top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - navHeight - 24),
+          behavior: "smooth",
+        });
+      }
+      window.setTimeout(() => projectSearchRef.current?.focus(), 520);
+    };
+    window.addEventListener("keydown", handleShortcut);
+    return () => window.removeEventListener("keydown", handleShortcut);
+  }, []);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const elements = Array.from(document.querySelectorAll<HTMLElement>(".journey-nav, .journey-hero, .project-search, .mail-link"));
+    const reset = (element: HTMLElement) => {
+      element.style.setProperty("--spell-x", "0px");
+      element.style.setProperty("--spell-y", "0px");
+    };
+    const handlers = elements.map((element) => {
+      const move = (event: PointerEvent) => {
+        const box = element.getBoundingClientRect();
+        const x = ((event.clientX - box.left) / box.width - 0.5) * 10;
+        const y = ((event.clientY - box.top) / box.height - 0.5) * 8;
+        element.style.setProperty("--spell-x", `${x.toFixed(1)}px`);
+        element.style.setProperty("--spell-y", `${y.toFixed(1)}px`);
+      };
+      const leave = () => reset(element);
+      element.addEventListener("pointermove", move);
+      element.addEventListener("pointerleave", leave);
+      return { element, move, leave };
+    });
+    const projectCards = Array.from(document.querySelectorAll<HTMLElement>(".project"));
+    const cardHandlers = projectCards.map((card) => {
+      const move = (event: PointerEvent) => {
+        const box = card.getBoundingClientRect();
+        card.style.setProperty("--card-x", `${((event.clientX - box.left) / box.width * 100).toFixed(1)}%`);
+        card.style.setProperty("--card-y", `${((event.clientY - box.top) / box.height * 100).toFixed(1)}%`);
+      };
+      card.addEventListener("pointermove", move);
+      return { card, move };
+    });
+    return () => {
+      handlers.forEach(({ element, move, leave }) => {
+        element.removeEventListener("pointermove", move);
+        element.removeEventListener("pointerleave", leave);
+        reset(element);
+      });
+      cardHandlers.forEach(({ card, move }) => card.removeEventListener("pointermove", move));
+    };
+  }, [projectFilter, projectQuery]);
 
   useEffect(() => {
     const ids = ["home", "about", "work", "strengths", "contact"];
@@ -172,6 +247,11 @@ export default function Home() {
     onScroll();
     return () => { window.removeEventListener("pointermove", move); window.removeEventListener("scroll", onScroll); observer.disconnect(); };
   }, []);
+
+  const visibleProjects = projects.filter((project) => (
+    (projectFilter === "全部" || project.group === projectFilter)
+    && [project.title, project.category, project.summary].join(" ").toLowerCase().includes(projectQuery.trim().toLowerCase())
+  ));
 
   return (
     <main>
@@ -224,12 +304,11 @@ export default function Home() {
 
       <section className="work section" id="work">
         <div className="shell"><header className="section-head" id="work-anchor"><span>02 / 精选作品</span><p>精选项目</p></header>
-          <div className="work-title"><h2>作品是思考<br />留下的<em>痕迹。</em></h2><p>六组原创<br />概念作品</p></div>
-          <div className="project-filters" role="group" aria-label="项目分类">{["全部","品牌设计","视觉设计","AI 视觉"].map((item)=><button key={item} className={projectFilter===item?"active":""} onClick={()=>setProjectFilter(item)}>{item}</button>)}</div>
-          <div className="project-grid">{projects.filter((p)=>projectFilter==="全部"||p.group===projectFilter).map((p) => <a href={`/projects/${p.slug}`} className={`project ${p.className}`} key={p.index} aria-label={`查看项目：${p.title}`}>
+          <div className="work-title"><h2>作品是思考<br />留下的<em>痕迹。</em></h2><div className="work-aside"><p><b>06</b> 组原创概念作品<br />从品牌、视觉到 AI 实验</p><div className="project-controls"><label className="project-search"><span aria-hidden="true">⌕</span><input ref={projectSearchRef} value={projectQuery} onChange={(event)=>setProjectQuery(event.target.value)} placeholder="查找作品" aria-label="查找作品" /><kbd>F</kbd></label><div className="project-filters" role="group" aria-label="项目分类">{["全部","品牌设计","视觉设计","AI 视觉"].map((item)=><button key={item} className={projectFilter===item?"active":""} onClick={()=>updateProjectFilter(item)}>{item}</button>)}</div></div></div></div>
+          <div className="project-grid" key={`${projectFilter}-${projectQuery}`}>{visibleProjects.map((p) => <a href={`/projects/${p.slug}`} className={`project ${p.className}`} key={p.index} aria-label={`查看项目：${p.title}`}>
             <div className="project-image"><img src={p.image} alt={p.title} /><span className="view">查看<br />项目 ↗</span></div>
             <div className="project-meta"><span>{p.index}</span><h3>{p.title}</h3><p>{p.category}</p><small>{p.summary}</small></div>
-          </a>)}</div>
+          </a>)}{visibleProjects.length === 0 && <div className="project-empty" role="status"><span>没有找到匹配的作品</span><p>试试更换分类，或使用更简短的关键词。</p><button type="button" onClick={() => { setProjectQuery(""); setProjectFilter("全部"); projectSearchRef.current?.focus(); }}>清除筛选</button></div>}</div>
         </div>
       </section>
 
@@ -246,7 +325,7 @@ export default function Home() {
       <footer className="footer" id="contact"><div className="footer-noise" /><div className="shell footer-inner">
         <p className="kicker light">让我们一起创造有意义的作品。</p>
         <h2>有想法？<br /><em>一起聊聊。</em></h2>
-        <a className="mail-link" href="mailto:sheriff001@foxmail.com" aria-label="发送邮件给张顺富">SHERIFF001@FOXMAIL.COM <span>↗</span></a>
+        <a className="mail-link" href="mailto:sheriff001@foxmail.com" aria-label="发送邮件给张顺富"><span className="contact-card-kicker">合作联系</span><span className="contact-phone">182 8188 9843</span><span className="contact-services">品牌视觉 · AI 创意 · 项目合作</span><span className="contact-email">SHERIFF001@FOXMAIL.COM</span><span className="contact-arrow">↗</span></a>
         <div className="footer-base"><div className="logo invert"><span>ZS</span><i /></div><p>张顺富<br />视觉 / AI / 品牌设计师</p><p><a href="tel:+8618281889843" aria-label="拨打张顺富的电话">182 8188 9843</a><br />中国 · 成都</p><p className="right">© 2026 保留所有权利<br />以好奇心驱动设计</p></div>
       </div></footer>
       <button className={`back-top ${showTop ? "show" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="返回顶部"><span>↑</span><small>顶部</small></button>

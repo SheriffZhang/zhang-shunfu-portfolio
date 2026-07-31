@@ -10,6 +10,8 @@ import "../src/styles/capabilities.css";
 import "../src/styles/typography-system.css";
 import "../src/styles/ui-balance.css";
 import "../src/styles/project-breakdown.css";
+import "../src/styles/contact-polish.css";
+import "../src/styles/spell-motion.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
