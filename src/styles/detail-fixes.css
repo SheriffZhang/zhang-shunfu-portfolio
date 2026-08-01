@@ -319,3 +319,24 @@
 .detail-project-05 .detail-footer > a {
   border-color: rgba(21,25,29,.28) !important;
 }
+
+/* 每个项目的延展编号只使用自身视觉系统中的色彩，避免旧的通用强调色串入。 */
+.detail {
+  --system-step-1: #a5abad;
+  --system-step-2: #5a6268;
+  --system-step-3: #15191d;
+}
+
+.detail-project-01 { --system-step-1: #b9c7d1; --system-step-2: #5c7ea2; --system-step-3: #315f93; }
+.detail-project-02 { --system-step-1: #c9cfd3; --system-step-2: #59636b; --system-step-3: #3157ff; }
+.detail-project-03 { --system-step-1: #bbb5a7; --system-step-2: #244a35; --system-step-3: #b79a62; }
+.detail-project-04 { --system-step-1: #c7d0d6; --system-step-2: #7ba9d9; --system-step-3: #2f5e83; }
+.detail-project-05 { --system-step-1: #b8bec3; --system-step-2: #171b1f; --system-step-3: #3157ff; }
+.detail-project-06 { --system-step-1: #a7b5c4; --system-step-2: #2367ff; --system-step-3: #ff6f61; }
+.detail-project-07 { --system-step-1: #928b85; --system-step-2: #383535; --system-step-3: #b71f2a; }
+.detail-project-08 { --system-step-1: #cfc6b6; --system-step-2: #5d8058; --system-step-3: #183f2b; }
+.detail-project-09 { --system-step-1: #bec1c7; --system-step-2: #777e8b; --system-step-3: #8a7bff; }
+
+.detail .breakdown-system b:nth-of-type(1) { color: var(--system-step-1) !important; }
+.detail .breakdown-system b:nth-of-type(2) { color: var(--system-step-2) !important; }
+.detail .breakdown-system b:nth-of-type(3) { color: var(--system-step-3) !important; }
