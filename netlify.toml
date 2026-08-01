@@ -1,0 +1,14 @@
+[build]
+  command = "npm run build && node scripts/prepare-netlify.mjs"
+  publish = "public"
+  functions = "netlify/functions"
+
+[build.environment]
+  # Vinext provides the server runtime through our own Netlify Function.
+  # Prevent Netlify from treating this project as a conventional Next.js build.
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/app"
+  status = 200

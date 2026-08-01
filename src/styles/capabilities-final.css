@@ -1,0 +1,19 @@
+/* Keep the process heading and timeline on a single reading axis. */
+.design-process {
+  padding-top: 68px !important;
+}
+
+.process-heading {
+  display: block !important;
+  margin-bottom: 50px !important;
+}
+
+.process-heading h3 {
+  margin: 22px 0 0 !important;
+}
+
+@media (max-width: 720px) {
+  .design-process {
+    padding-top: 58px !important;
+  }
+}

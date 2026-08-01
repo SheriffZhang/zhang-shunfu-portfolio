@@ -36,6 +36,17 @@
 .breakdown-06 .breakdown-signature i:nth-child(3){right:16%;top:5px;width:1px;height:63px;background:linear-gradient(transparent,#8a7bff,transparent);box-shadow:-10px 5px 14px rgba(138,123,255,.7),10px -4px 14px rgba(138,123,255,.38)}
 .palette-labels{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:3px auto 16px;width:min(280px,100%)}
 .palette-labels span{overflow:hidden;color:#73808a;font-size:9px;letter-spacing:.04em;text-align:center;text-overflow:ellipsis;white-space:nowrap}
+
+/* Project-specific palettes; numbering follows the current nine-project collection. */
+.breakdown-01 .breakdown-color i:nth-child(1){background:#22282f}.breakdown-01 .breakdown-color i:nth-child(2){background:#8fbce5}.breakdown-01 .breakdown-color i:nth-child(3){background:#f4f7f8}.breakdown-01 .breakdown-color i:nth-child(4){background:#c9d2d8}
+.breakdown-02 .breakdown-color i:nth-child(1){background:#f8fafb}.breakdown-02 .breakdown-color i:nth-child(2){background:#d7dde1}.breakdown-02 .breakdown-color i:nth-child(3){background:#101214}.breakdown-02 .breakdown-color i:nth-child(4){background:#3157ff}
+.breakdown-03 .breakdown-color i:nth-child(1){background:#f1eee4}.breakdown-03 .breakdown-color i:nth-child(2){background:#244a35}.breakdown-03 .breakdown-color i:nth-child(3){background:#b79a62}.breakdown-03 .breakdown-color i:nth-child(4){background:#cfd5cb}
+.breakdown-04 .breakdown-color i:nth-child(1){background:#20262d}.breakdown-04 .breakdown-color i:nth-child(2){background:#cdd6dc}.breakdown-04 .breakdown-color i:nth-child(3){background:#f5f7f7}.breakdown-04 .breakdown-color i:nth-child(4){background:#7ba9d9}
+.breakdown-05 .breakdown-color i:nth-child(1){background:#f8fafb}.breakdown-05 .breakdown-color i:nth-child(2){background:#d7dde1}.breakdown-05 .breakdown-color i:nth-child(3){background:#101214}.breakdown-05 .breakdown-color i:nth-child(4){background:#3157ff}
+.breakdown-06 .breakdown-color i:nth-child(1){background:#0d1b31}.breakdown-06 .breakdown-color i:nth-child(2){background:#2367ff}.breakdown-06 .breakdown-color i:nth-child(3){background:#ff6f61}.breakdown-06 .breakdown-color i:nth-child(4){background:#f4f1ea}
+.breakdown-07 .breakdown-color i:nth-child(1){background:#171717}.breakdown-07 .breakdown-color i:nth-child(2){background:#eee8dc}.breakdown-07 .breakdown-color i:nth-child(3){background:#b71f2a}.breakdown-07 .breakdown-color i:nth-child(4){background:#77716b}
+.breakdown-08 .breakdown-color i:nth-child(1){background:#f3eee2}.breakdown-08 .breakdown-color i:nth-child(2){background:#5d8058}.breakdown-08 .breakdown-color i:nth-child(3){background:#183f2b}.breakdown-08 .breakdown-color i:nth-child(4){background:#a79a89}
+.breakdown-09 .breakdown-color i:nth-child(1){background:#07080d}.breakdown-09 .breakdown-color i:nth-child(2){background:#8a7bff}.breakdown-09 .breakdown-color i:nth-child(3){background:#d7d4cc}.breakdown-09 .breakdown-color i:nth-child(4){background:#6d7787}
 .breakdown-01 .breakdown-motif::before{left:8%;right:auto;width:78%;border:1px solid rgba(101,118,230,.42);border-radius:50%;transform:rotate(-14deg) scaleY(.34)}
 .breakdown-01 .breakdown-motif::after{top:11px;left:31%;width:72px;height:72px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.95),rgba(140,163,236,.2) 54%,transparent 55%);filter:blur(.2px)}
 .breakdown-02 .breakdown-motif{background:linear-gradient(90deg,transparent 0 10%,rgba(49,87,255,.18) 10% 10.5%,transparent 10.5% 47%,rgba(16,18,20,.24) 47% 47.5%,transparent 47.5% 90%,rgba(49,87,255,.18) 90% 90.5%,transparent 90.5%)}
@@ -50,3 +61,44 @@
 .breakdown-06 .breakdown-motif::before{left:18%;width:145px;height:48px;border:1px solid rgba(138,123,255,.56);border-radius:50%;transform:rotate(-12deg);box-shadow:0 0 24px rgba(138,123,255,.18)}
 .breakdown-06 .breakdown-motif::after{left:43%;top:-25px;width:1px;height:110px;background:linear-gradient(transparent,#8a7bff,transparent);transform:rotate(50deg);box-shadow:20px 0 0 rgba(138,123,255,.42),40px 0 0 rgba(138,123,255,.24)}
 @media(max-width:760px){.breakdown-motif{height:46px;margin-top:18px}.palette-labels{width:min(250px,100%)}.palette-labels span{font-size:8px}}
+
+/* Rebuilt visual-composition diagrams for the current nine projects. */
+.detail-breakdown .breakdown-signature{border:0;background:none;opacity:1}
+.detail-breakdown .breakdown-signature>i{all:unset;position:absolute;display:block;box-sizing:border-box}
+/* 01 FLUID SIGNAL — liquid orbit, refracted core, signal line. */
+.breakdown-01 .breakdown-signature i:nth-child(1){left:8%;top:16px;width:76%;height:38px;border:2px solid #8fbce5;border-radius:50%;transform:rotate(-9deg) scaleY(.55)}
+.breakdown-01 .breakdown-signature i:nth-child(2){left:39%;top:4px;width:62px;height:62px;border:1px solid rgba(34,40,47,.25);border-radius:50%;background:radial-gradient(circle at 32% 25%,#fff 0 8%,#c9e4f4 35%,rgba(143,188,229,.16) 68%,transparent 70%);box-shadow:0 12px 28px rgba(79,139,181,.22)}
+.breakdown-01 .breakdown-signature i:nth-child(3){right:8%;top:34px;width:30%;height:2px;background:linear-gradient(90deg,transparent,#22282f 45%,transparent)}
+/* 02 LUMEN — converging beams and cobalt focal point. */
+.breakdown-02 .breakdown-signature i:nth-child(1){left:12%;top:11px;width:56%;height:48px;background:linear-gradient(12deg,transparent 46%,#111 47% 50%,transparent 51%),linear-gradient(-12deg,transparent 46%,#cbd2d7 47% 50%,transparent 51%);clip-path:polygon(0 0,100% 38%,100% 62%,0 100%)}
+.breakdown-02 .breakdown-signature i:nth-child(2){right:18%;top:19px;width:35px;height:35px;border-radius:50%;background:#3157ff;box-shadow:0 0 0 9px rgba(49,87,255,.1)}
+.breakdown-02 .breakdown-signature i:nth-child(3){right:8%;top:35px;width:26%;height:1px;background:#3157ff}
+/* 03 YEMU — paired leaves, seal and packaging baseline. */
+.breakdown-03 .breakdown-signature i:nth-child(1){left:30%;top:10px;width:28px;height:42px;border-radius:100% 0 100% 0;background:#244a35;transform:rotate(-42deg);box-shadow:28px 2px 0 #5d8058}
+.breakdown-03 .breakdown-signature i:nth-child(2){left:50%;top:43px;width:10px;height:10px;border-radius:50%;background:#b79a62}
+.breakdown-03 .breakdown-signature i:nth-child(3){left:12%;right:12%;bottom:7px;height:1px;background:linear-gradient(90deg,transparent,#244a35 18% 82%,transparent)}
+/* 04 AI VISUAL LAB — transparent rings and sampled material panes. */
+.breakdown-04 .breakdown-signature i:nth-child(1){left:17%;top:5px;width:62px;height:62px;border:1px solid rgba(107,143,214,.7);border-radius:50%;box-shadow:38px 0 0 -12px rgba(205,214,220,.6)}
+.breakdown-04 .breakdown-signature i:nth-child(2){left:44%;top:14px;width:78px;height:45px;border:1px solid rgba(32,38,45,.25);border-radius:50%;transform:rotate(18deg);background:linear-gradient(135deg,rgba(255,255,255,.85),rgba(123,169,217,.13))}
+.breakdown-04 .breakdown-signature i:nth-child(3){right:12%;top:8px;width:34px;height:56px;border:1px solid rgba(107,143,214,.35);background:rgba(255,255,255,.35);transform:skewY(-12deg)}
+/* 05 BRAND SYSTEM — geometric mark and precise grid. */
+.breakdown-05 .breakdown-signature i:nth-child(1){left:24%;top:17px;width:0;height:0;border-right:23px solid transparent;border-bottom:37px solid #101214}
+.breakdown-05 .breakdown-signature i:nth-child(2){left:47%;top:19px;width:27px;height:27px;border-radius:50%;background:#101214;box-shadow:35px 18px 0 -1px #fff,35px 18px 0 1px #101214}
+.breakdown-05 .breakdown-signature i:nth-child(3){right:15%;top:8px;width:4px;height:56px;border-radius:8px;background:#3157ff;box-shadow:-112px 22px 0 -1px rgba(49,87,255,.35)}
+/* 06 DIGITAL NARRATIVE — three responsive screens and content flow. */
+.breakdown-06 .breakdown-signature i:nth-child(1){left:10%;top:9px;width:42%;height:54px;border:2px solid #0d1b31;border-radius:5px;background:linear-gradient(90deg,#2367ff 0 28%,#fff 28%)}
+.breakdown-06 .breakdown-signature i:nth-child(2){left:58%;top:17px;width:28px;height:44px;border:2px solid #2367ff;border-radius:4px;background:linear-gradient(#fff 0 65%,#ff6f61 65%)}
+.breakdown-06 .breakdown-signature i:nth-child(3){right:8%;top:25px;width:32px;height:32px;border:2px solid #0d1b31;background:#f4f1ea;box-shadow:-78px 6px 0 -15px #ff6f61}
+/* 07 CITY MEMORY — vermilion timeline and archival fragments. */
+.breakdown-07 .breakdown-signature{background:linear-gradient(90deg,transparent 0 49%,#b71f2a 49% 51%,transparent 51%)}
+.breakdown-07 .breakdown-signature i:nth-child(1){left:10%;top:8px;width:58px;height:48px;background:#171717;clip-path:polygon(0 100%,0 45%,25% 25%,42% 52%,64% 10%,100% 42%,100% 100%)}
+.breakdown-07 .breakdown-signature i:nth-child(2){right:17%;top:12px;width:38px;height:38px;border:7px solid #77716b;border-right-color:transparent;border-radius:50%;transform:rotate(-28deg)}
+.breakdown-07 .breakdown-signature i:nth-child(3){left:6%;right:6%;bottom:7px;height:1px;background:linear-gradient(90deg,#171717 0 30%,transparent 30% 68%,#b71f2a 68%)}
+/* 08 NATURAL TEA — repeatable leaf unit and gentle contour lines. */
+.breakdown-08 .breakdown-signature i:nth-child(1){left:23%;top:10px;width:25px;height:40px;border-radius:100% 0 100% 0;background:#183f2b;transform:rotate(-40deg);box-shadow:25px 2px 0 #5d8058,50px 4px 0 #183f2b}
+.breakdown-08 .breakdown-signature i:nth-child(2){right:12%;top:14px;width:100px;height:38px;border-top:1px solid rgba(24,63,43,.5);border-radius:50%;transform:rotate(-12deg);box-shadow:0 8px 0 -1px rgba(24,63,43,.3),0 16px 0 -2px rgba(24,63,43,.16)}
+.breakdown-08 .breakdown-signature i:nth-child(3){left:12%;bottom:7px;width:22%;height:1px;background:#a79a89}
+/* 09 MOTION IDENTITY — metallic ribbon, orbit and energy trail. */
+.breakdown-09 .breakdown-signature i:nth-child(1){left:25%;top:4px;width:62px;height:62px;border:8px solid #c3c6ce;border-left-color:#8a7bff;border-bottom-color:#4e438f;border-radius:50%;transform:rotate(-35deg)}
+.breakdown-09 .breakdown-signature i:nth-child(2){left:43%;top:13px;width:76px;height:41px;border:1px solid #8a7bff;border-radius:50%;transform:rotate(20deg);box-shadow:0 0 20px rgba(138,123,255,.35)}
+.breakdown-09 .breakdown-signature i:nth-child(3){right:14%;top:5px;width:1px;height:63px;background:linear-gradient(transparent,#8a7bff,transparent);box-shadow:-10px 5px 14px rgba(138,123,255,.7),10px -4px 14px rgba(138,123,255,.38)}

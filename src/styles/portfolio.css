@@ -54,7 +54,10 @@
 .work-aside .project-controls{display:grid;grid-template-columns:minmax(190px,.78fr) 1.22fr;align-items:center;gap:14px;margin:0!important}
 .work-aside .project-search{width:100%!important;height:46px!important}
 .work-aside .project-filters{justify-content:flex-start!important;gap:7px!important}
-.work-aside .project-filters button{padding:10px 13px!important;font-size:11px!important}
+.work-aside .project-filters button{display:inline-flex;align-items:center;gap:8px;padding:9px 11px 9px 13px!important;font-size:11px!important}
+.project-filters button small{min-width:19px;height:19px;display:inline-grid;place-items:center;border-radius:999px;background:rgba(30,43,51,.07);color:#77848c;font-size:9px;line-height:1;transition:background .25s ease,color .25s ease}
+.project-filters button.active small{background:rgba(255,255,255,.16);color:#fff}
+.project-count{justify-self:end;color:#829099;font-size:10px;letter-spacing:.08em}
 @media(max-width:940px){.work-title{grid-template-columns:1fr!important;gap:26px!important}.work-aside{padding:20px 0 0;border-top:1px solid rgba(44,65,78,.14);border-left:0}.work-aside .project-controls{grid-template-columns:minmax(230px,.75fr) 1fr}}
 @media(max-width:620px){.work-aside .project-controls{grid-template-columns:1fr}.work-aside .project-filters{justify-content:flex-start!important}}
 
@@ -62,9 +65,29 @@
 .project-grid{view-transition-name:project-archive}
 .project-grid .project{animation:archive-card-in .56s cubic-bezier(.2,.75,.2,1) both}
 .project-grid .project:nth-child(2){animation-delay:.055s}.project-grid .project:nth-child(3){animation-delay:.11s}.project-grid .project:nth-child(4){animation-delay:.165s}.project-grid .project:nth-child(5){animation-delay:.22s}.project-grid .project:nth-child(6){animation-delay:.275s}
-@keyframes archive-card-in{from{opacity:0;transform:translateY(26px) scale(.975);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@keyframes archive-card-in{from{opacity:0;transform:translateY(18px) scale(.985);filter:blur(2px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 ::view-transition-old(project-archive){animation:archive-out .2s ease both}
 ::view-transition-new(project-archive){animation:archive-in .42s cubic-bezier(.2,.75,.2,1) both}
 @keyframes archive-out{to{opacity:0;transform:translateY(-10px);filter:blur(3px)}}
 @keyframes archive-in{from{opacity:0;transform:translateY(14px);filter:blur(3px)}to{opacity:1;transform:none;filter:blur(0)}}
 @media(prefers-reduced-motion:reduce){.project-grid .project,::view-transition-old(project-archive),::view-transition-new(project-archive){animation:none!important}}
+
+/* Noiced-inspired editorial details, translated into the site's white-glass language. */
+.project{position:relative;padding:10px;border:1px solid rgba(31,42,48,.12);background:rgba(255,255,255,.44);transition:opacity .38s ease,transform .38s ease,border-color .38s ease,box-shadow .38s ease}
+.project:hover{border-color:rgba(31,42,48,.24);box-shadow:0 22px 58px rgba(35,48,55,.08)}
+.project-image{isolation:isolate}
+.frame-corner{position:absolute;z-index:5;width:8px;height:8px;border-color:rgba(20,29,34,.52);border-style:solid;pointer-events:none;transition:width .3s ease,height .3s ease,border-color .3s ease}
+.corner-tl{top:-1px;left:-1px;border-width:1px 0 0 1px}.corner-tr{top:-1px;right:-1px;border-width:1px 1px 0 0}.corner-bl{bottom:-1px;left:-1px;border-width:0 0 1px 1px}.corner-br{right:-1px;bottom:-1px;border-width:0 1px 1px 0}
+.project:hover .frame-corner{width:16px;height:16px;border-color:#11191e}
+.project .view{z-index:3;inset:0;width:auto;height:auto;border:0;border-radius:0;padding:30px;background:rgba(244,248,249,.72);backdrop-filter:blur(18px) grayscale(.85);-webkit-backdrop-filter:blur(18px) grayscale(.85);display:grid;grid-template-rows:auto 1fr auto;align-items:start;text-align:left;color:#152028;opacity:0;transform:none;transition:opacity .35s ease}
+.project .view small{font-family:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;font-size:9px;letter-spacing:.14em;color:#64727b}
+.project .view b{align-self:center;font-family:var(--font-body);font-size:clamp(24px,2.6vw,42px);font-weight:600;line-height:1.05;letter-spacing:-.06em}
+.project .view em{justify-self:end;align-self:end;font-family:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;font-size:10px;font-style:normal;letter-spacing:.1em}
+.project:hover .view{opacity:1;transform:none}
+.project-meta{margin:0;padding:18px 8px 8px;border-top:0;grid-template-columns:52px 1fr auto}
+.project-meta>span,.project-meta>p{font-family:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;font-size:9px;letter-spacing:.1em}
+.project-meta>span::before{content:"["}.project-meta>span::after{content:"]"}
+.project-filters{gap:0;border:1px solid rgba(22,31,36,.13);background:rgba(255,255,255,.48);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.project-filters button{border:0;border-right:1px solid rgba(22,31,36,.11);border-radius:0;background:transparent;padding:12px 16px;font-family:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;font-size:10px;letter-spacing:.04em;backdrop-filter:none}
+.project-filters button:last-child{border-right:0}.project-filters button:hover{background:rgba(24,31,35,.07);color:#111}.project-filters button.active{background:#172027;color:#fff}
+@media(max-width:760px){.project{padding:7px}.project .view{display:none}.project-filters{width:max-content}.project-meta{padding:14px 4px 5px}}

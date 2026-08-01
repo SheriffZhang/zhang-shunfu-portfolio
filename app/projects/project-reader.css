@@ -6,6 +6,8 @@
 .detail-reader a:before{content:"";display:inline-block;width:5px;height:5px;margin:0 8px 1px 0;border-radius:50%;background:currentColor}
 .detail-reader a:hover,.detail-reader a.is-active{color:#111;transform:translateX(2px)}
 .detail-reader button{margin-top:4px;padding-top:10px;border:0;border-top:1px solid rgba(17,17,17,.1);background:transparent;color:#62686b;font:inherit;text-align:left;cursor:pointer}
+.detail-reader a:focus-visible,.detail-reader button:focus-visible{outline:2px solid #507c9b;outline-offset:4px;border-radius:4px}
+#overview,#method,#breakdown,#next-project{scroll-margin-top:36px}
 .detail-cover img{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
 .detail-cover:hover img{transform:scale(1.025)}
 .detail-info>div{position:relative;transition:transform .35s ease}

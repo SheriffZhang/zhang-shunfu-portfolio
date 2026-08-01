@@ -1,3 +1,51 @@
 /* Chinese typography balance and minimum readable sizes */
 .section-head,.detail-label{font-size:12px!important}.kicker,.eyebrow{font-size:13px!important}.work-title>p,.strength-intro>p,.process-heading>span,.capability-tools>span{font-size:12px!important;line-height:1.8}.project-meta span,.project-meta p{font-size:11px!important}.stats span{font-size:11px!important;line-height:1.65!important}.cap-type{font-size:11px!important}.cap-tags b,.capability-tools b{font-size:12px!important}.strength-grid small{font-size:11px}.footer-base p{font-size:11px!important}.design-process{grid-template-columns:minmax(440px,1.05fr) minmax(0,2.95fr)!important;gap:70px}.process-heading h3{font-size:clamp(44px,3.5vw,60px)!important;line-height:1.18!important;letter-spacing:-.045em!important;white-space:nowrap}.design-process li{grid-template-columns:72px minmax(150px,.8fr) minmax(300px,1.5fr)!important;min-height:106px;padding:26px 18px!important}.design-process li i{font-size:12px!important}.design-process li b{font-size:20px!important}.design-process li p{font-size:14px!important;line-height:1.7!important}.capability-tools{grid-template-columns:minmax(260px,1fr) 3fr!important;gap:40px}.detail-info small,.detail-story>span{font-size:12px!important}.detail-info p,.detail-story p{font-size:15px!important}.detail-next>p{font-size:12px!important}@media(max-width:1250px){.design-process{grid-template-columns:340px 1fr!important;gap:45px}.process-heading h3{font-size:46px!important}.design-process li{grid-template-columns:55px 140px 1fr!important}}@media(max-width:900px){.design-process{grid-template-columns:1fr!important}.process-heading h3{white-space:normal;max-width:600px}.capability-tools{grid-template-columns:1fr!important}.design-process li{grid-template-columns:55px 150px 1fr!important}}@media(max-width:650px){.process-heading h3{font-size:38px!important;line-height:1.22!important}.design-process li{grid-template-columns:38px 1fr!important;gap:8px 12px;min-height:0;padding:22px 4px!important}.design-process li p{grid-column:2!important;font-size:13px!important}.design-process li b{font-size:17px!important}.section-head{font-size:11px!important}.footer-base p{font-size:9px!important}}
 html,body{overflow-x:hidden}@media(max-width:900px){.nav-links{position:absolute!important;left:0!important;right:0!important;top:calc(100% + 10px)!important}}@media(max-width:650px){.glass-orb-one{right:-120px!important}.nav-links{left:0!important;right:0!important}}
+
+/* Tighter first impression and denser editorial rhythm. */
+.reveal{transform:translateY(22px)!important;filter:blur(2px)!important;transition-duration:.72s!important}
+.reveal.is-visible{transform:none!important;filter:none!important}
+@media(min-width:901px){
+  .hero{height:min(900px,100svh)!important;min-height:720px!important}
+  .cinematic-video{top:190px!important;height:calc(100% - 190px)!important}
+  .cinematic-gradient{background:linear-gradient(to bottom,#fff 0,rgba(255,255,255,.2) 38%,rgba(246,249,250,.34) 70%,#fff 100%)!important}
+  .cinematic-hero{height:100%!important;min-height:100%!important;padding:clamp(118px,15vh,154px) 24px 88px!important}
+  .cinematic-hero h1{margin:0!important;max-width:1180px!important}
+  .cinematic-hero>p{margin-top:26px!important}
+  .journey-hero{margin-top:34px!important;padding:17px 48px!important}
+  .about.section{padding-top:104px!important;padding-bottom:108px!important}
+  .about .section-head{margin-bottom:54px!important}
+  .about-grid{gap:clamp(70px,7vw,118px)!important}
+  .portrait-wrap{height:620px!important}
+  .about-copy{padding-top:18px!important}
+  .about h2{margin:34px 0!important}
+  .contact-list{margin-top:38px!important}
+  .stats{margin-top:64px!important}
+  .stats>div{padding-top:34px!important;padding-bottom:34px!important}
+  .strengths.section{padding-top:104px!important;padding-bottom:108px!important}
+  .strengths .section-head{margin-bottom:54px!important}
+  .strength-grid{margin-top:58px!important}
+  .strength-grid article{min-height:410px!important}
+  .strength-grid .orb{margin:30px 0 32px!important}
+  .capability-detail{margin-top:82px!important}
+  .design-process{padding-top:78px!important;padding-bottom:8px!important}
+}
+@media(prefers-reduced-motion:reduce){.reveal{transform:none!important;filter:none!important;transition:none!important}}
+
+/* Keyboard access and a site-specific dead-end page. */
+.skip-link{position:fixed;z-index:200;top:12px;left:50%;padding:11px 18px;border-radius:999px;background:#111;color:#fff;font-size:13px;transform:translate(-50%,-160%);transition:transform .2s ease}
+.skip-link:focus{transform:translate(-50%,0)}
+.not-found-page{min-height:100vh;padding:28px clamp(24px,5vw,86px);background:radial-gradient(circle at 82% 16%,rgba(153,194,222,.28),transparent 30%),linear-gradient(145deg,#fff 0%,#f2f7fa 100%);color:#12202a}
+.not-found-nav{width:min(1500px,100%);height:76px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(25,46,60,.12)}
+.not-found-nav>a:last-child{font-size:13px;color:#5f707b}
+.not-found-page>section{width:min(1500px,100%);min-height:calc(100vh - 132px);margin:0 auto;display:flex;flex-direction:column;justify-content:center;padding:80px 0}
+.not-found-page>section>span{font-size:12px;letter-spacing:.15em;color:#718692}
+.not-found-page h1{max-width:1100px;margin:30px 0 24px;font:400 clamp(58px,7.5vw,132px)/.98 var(--font-display);letter-spacing:-.06em}
+.not-found-page h1 em{color:#7da5bf;font-weight:400}
+.not-found-page>section>p{margin:0;color:#687984;font-size:15px;line-height:1.8}
+.not-found-page>section>div{display:flex;gap:12px;margin-top:42px}
+.not-found-page>section>div a{padding:14px 22px;border:1px solid rgba(25,46,60,.14);border-radius:999px;background:rgba(255,255,255,.62);backdrop-filter:blur(16px);font-size:13px;transition:transform .25s ease,background .25s ease}
+.not-found-page>section>div a:first-child{background:#13222c;color:#fff}
+.not-found-page>section>div a:hover{transform:translateY(-3px)}
+@media(max-width:650px){.not-found-page{padding:16px 20px}.not-found-page h1{font-size:52px}.not-found-page>section>div{align-items:flex-start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.skip-link,.not-found-page>section>div a{transition:none!important}}

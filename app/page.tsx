@@ -1,69 +1,32 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 const projects = [
-  {
-    slug: "ai-visual-lab",
-    group: "AI 视觉",
-    index: "01",
-    title: "AI 创意视觉探索",
-    category: "AI 视觉 · 概念项目",
-    summary: "用提示词、材质实验和后期精修，建立一套透明流动的未来感主视觉。",
-    image: "/projects/ai-visual-exploration.png",
-    className: "project-wide",
-  },
-  {
-    slug: "future-brand-system",
-    group: "品牌设计",
-    index: "02",
-    title: "品牌视觉系统设计",
-    category: "品牌主视觉 · 概念提案",
-    summary: "以几何标识、冷白空间和钴蓝强调色，建立科技品牌的核心视觉气质。",
-    image: "/projects/brand-visual-system.png",
-    className: "",
-  },
-  {
-    slug: "digital-narrative-space",
-    group: "视觉设计",
-    index: "03",
-    title: "数字传播视觉设计",
-    category: "视觉设计 · 代表方向",
-    summary: "围绕网页、移动端与社媒切片，梳理跨屏内容的阅读节奏和视觉层级。",
-    image: "/projects/digital-communication-system.png",
-    className: "",
-  },
-  {
-    slug: "cultural-poster-series",
-    group: "视觉设计",
-    index: "04",
-    title: "城市记忆海报计划",
-    category: "海报设计 · 原创概念项目",
-    summary: "以城市影像、粗粝纹理和朱红结构，完成一组具有展览感的系列海报。",
-    image: "/projects/cultural-poster-series.png",
-    className: "project-wide",
-  },
-  {
-    slug: "tea-packaging-system",
-    group: "品牌设计",
-    index: "05",
-    title: "当代茶品牌包装",
-    category: "包装设计 · 原创概念项目",
-    summary: "把茶芽、纸张肌理和礼赠场景转化为包装系统，强调自然与品质感。",
-    image: "/projects/tea-packaging-system.png",
-    className: "",
-  },
-  {
-    slug: "motion-identity",
-    group: "AI 视觉",
-    index: "06",
-    title: "生成式动态识别",
-    category: "动态视觉 · 原创概念项目",
-    summary: "用金属形态、粒子轨迹和循环规则，探索可运动、可拆分的动态识别语言。",
-    image: "/projects/motion-identity.png",
-    className: "",
-  },
+  {slug:"fluid-signal",group:"AI 视觉",index:"01",title:"FLUID SIGNAL",category:"AI 视觉传播 · 自主命题作品",summary:"将液态玻璃生成语言整理为适用于大屏、社交媒体和网页的传播系统。",image:"/case-studies/fluid-signal-applications.png",className:"project-wide"},
+  {slug:"lumen-brand-system",group:"品牌设计",index:"02",title:"LUMEN",category:"未来品牌系统 · 自主命题作品",summary:"以“光是信息的入口”为概念，建立标识、版式、材质与数字触点。",image:"/case-studies/lumen-applications.png",className:""},
+  {slug:"yemu-tea-packaging",group:"品牌设计",index:"03",title:"YEMU",category:"当代茶礼包装 · 自主命题作品",summary:"面向年轻礼赠场景，建立礼盒、茶罐、独立袋和手提袋的包装家族。",image:"/case-studies/yemu-packaging-applications.png",className:""},
+  {slug:"ai-visual-lab",group:"AI 视觉",index:"04",title:"AI 创意视觉探索",category:"生成式视觉 · 材质实验",summary:"围绕透明、流动与折射进行生成实验，形成一组未来感数字主视觉。",image:"/projects/ai-visual-exploration.png",className:"project-wide"},
+  {slug:"future-brand-system",group:"品牌设计",index:"05",title:"品牌视觉系统设计",category:"品牌主视觉 · 几何系统",summary:"以几何标识、冷白空间和钴蓝强调色建立克制、理性的视觉秩序。",image:"/projects/brand-visual-system.png",className:""},
+  {slug:"digital-narrative-space",group:"视觉设计",index:"06",title:"数字传播视觉设计",category:"跨屏视觉 · 信息编排",summary:"围绕网页、移动端与社媒切片，梳理跨屏内容的阅读节奏和视觉层级。",image:"/projects/digital-communication-system.png",className:""},
+  {slug:"cultural-poster-series",group:"视觉设计",index:"07",title:"城市记忆海报计划",category:"系列海报 · 城市叙事",summary:"以城市影像、粗粝纹理和朱红结构，完成一组具有展览感的系列海报。",image:"/projects/cultural-poster-series.png",className:"project-wide"},
+  {slug:"tea-packaging-system",group:"品牌设计",index:"08",title:"自然茶品牌包装",category:"包装视觉 · 自然材质",summary:"从茶芽、纸张肌理和礼赠场景出发，构建自然克制的包装视觉方向。",image:"/projects/tea-packaging-system.png",className:""},
+  {slug:"motion-identity",group:"AI 视觉",index:"09",title:"生成式动态识别",category:"动态视觉 · 形态实验",summary:"用金属形态、粒子轨迹和循环规则，探索可运动、可拆分的动态识别语言。",image:"/projects/motion-identity.png",className:""},
 ];
+
+const projectFilters = ["全部", "品牌设计", "视觉设计", "AI 视觉"];
+const navigationItems = [
+  { id: "home", label: "首页" },
+  { id: "about", label: "关于" },
+  { id: "work", label: "作品" },
+  { id: "strengths", label: "能力" },
+  { id: "contact", label: "联系" },
+] as const;
+const projectCounts = new Map(projectFilters.map((filter) => [
+  filter,
+  filter === "全部" ? projects.length : projects.filter((project) => project.group === filter).length,
+]));
 
 const strengths = [
   ["01", "视觉设计", "围绕信息层级、版式、色彩和图像建立清晰且有辨识度的视觉表达。", "视觉表达", "版式设计|海报设计|图像处理|数字视觉"],
@@ -82,6 +45,8 @@ export default function Home() {
   const [projectQuery, setProjectQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const projectSearchRef = useRef<HTMLInputElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const navigationIntentRef = useRef<{ id: string; top: number; until: number } | null>(null);
   const getSectionAnchor = (id: string) => {
     if (id === "work") return document.getElementById("work-anchor");
     if (id === "contact") return document.querySelector("#contact .footer-inner > .kicker") ?? document.getElementById("contact");
@@ -95,8 +60,11 @@ export default function Home() {
     const navHeight = document.querySelector(".nav")?.getBoundingClientRect().height ?? 68;
     const offset = id === "home" ? 0 : navHeight + 24;
     const top = target.getBoundingClientRect().top + window.scrollY - offset;
-    window.history.replaceState(null, "", `#${id}`);
-    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    navigationIntentRef.current = { id, top: Math.max(0, top), until: Date.now() + 1600 };
+    setActiveSection(id);
+    if (window.location.hash !== `#${id}`) window.history.pushState(null, "", `#${id}`);
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    window.scrollTo({ top: Math.max(0, top), behavior });
     setMenuOpen(false);
   };
   const updateProjectFilter = (nextFilter: string) => {
@@ -139,15 +107,73 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (!menuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    const isCompact = window.matchMedia("(max-width: 900px)").matches;
+    if (isCompact) document.body.style.overflow = "hidden";
+    const closeMenu = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setMenuOpen(false);
+      menuButtonRef.current?.focus();
+    };
+    const closeOutside = (event: PointerEvent) => {
+      const target = event.target as Node | null;
+      if (target && !document.querySelector(".nav")?.contains(target)) setMenuOpen(false);
+    };
+    window.addEventListener("keydown", closeMenu);
+    window.addEventListener("pointerdown", closeOutside);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeMenu);
+      window.removeEventListener("pointerdown", closeOutside);
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const previousScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+    return () => {
+      window.history.scrollRestoration = previousScrollRestoration;
+    };
+  }, []);
+
+  useEffect(() => {
     if (window.location.hash) {
       const id = window.location.hash.slice(1);
       const timer = setTimeout(() => {
         const target = getSectionAnchor(id);
         const navHeight = document.querySelector(".nav")?.getBoundingClientRect().height ?? 68;
-        if (target) window.scrollTo({ top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - navHeight - 24), behavior: "smooth" });
+        if (target) {
+          const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - navHeight - 24);
+          navigationIntentRef.current = { id, top, until: Date.now() + 1600 };
+          setActiveSection(id);
+          window.scrollTo({ top, behavior: "smooth" });
+        }
       }, 180);
       return () => clearTimeout(timer);
     }
+  }, []);
+
+  useEffect(() => {
+    const restoreSectionFromHistory = () => {
+      const id = window.location.hash.slice(1) || "home";
+      if (!navigationItems.some((item) => item.id === id)) return;
+      const target = getSectionAnchor(id);
+      if (!target) return;
+      const navHeight = document.querySelector(".nav")?.getBoundingClientRect().height ?? 68;
+      const offset = id === "home" ? 0 : navHeight + 24;
+      const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - offset);
+      navigationIntentRef.current = { id, top, until: Date.now() + 2200 };
+      setActiveSection(id);
+      window.scrollTo({ top, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      setMenuOpen(false);
+    };
+    window.addEventListener("popstate", restoreSectionFromHistory);
+    window.addEventListener("hashchange", restoreSectionFromHistory);
+    return () => {
+      window.removeEventListener("popstate", restoreSectionFromHistory);
+      window.removeEventListener("hashchange", restoreSectionFromHistory);
+    };
   }, []);
 
   useEffect(() => {
@@ -158,8 +184,11 @@ export default function Home() {
       const target = document.getElementById("work-anchor");
       const navHeight = document.querySelector(".nav")?.getBoundingClientRect().height ?? 68;
       if (target) {
+        const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - navHeight - 24);
+        navigationIntentRef.current = { id: "work", top, until: Date.now() + 1600 };
+        setActiveSection("work");
         window.scrollTo({
-          top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - navHeight - 24),
+          top,
           behavior: "smooth",
         });
       }
@@ -211,22 +240,50 @@ export default function Home() {
 
   useEffect(() => {
     const ids = ["home", "about", "work", "strengths", "contact"];
+    let frame = 0;
     const update = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(max > 0 ? (window.scrollY / max) * 100 : 0);
       setShowTop(window.scrollY > window.innerHeight * 0.75);
-      const marker = window.scrollY + window.innerHeight * 0.36;
+      const intent = navigationIntentRef.current;
+      if (intent) {
+        if (Math.abs(window.scrollY - intent.top) < 8) {
+          setActiveSection(intent.id);
+          navigationIntentRef.current = null;
+          return;
+        }
+        if (Date.now() <= intent.until) {
+          setActiveSection(intent.id);
+          return;
+        }
+        navigationIntentRef.current = null;
+      }
+      const navHeight = document.querySelector(".nav")?.getBoundingClientRect().height ?? 68;
+      const readingLine = Math.min(320, Math.max(navHeight + 48, window.innerHeight * 0.34));
+      const marker = window.scrollY + readingLine;
       let current = "home";
       ids.forEach((id) => {
-        const section = document.getElementById(id);
-        if (section && section.offsetTop <= marker) current = id;
+        const anchor = getSectionAnchor(id);
+        if (anchor && anchor.getBoundingClientRect().top + window.scrollY <= marker) current = id;
       });
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 12) current = "contact";
       setActiveSection(current);
     };
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        update();
+      });
+    };
     update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
   }, []);
 
   useEffect(() => {
@@ -254,7 +311,8 @@ export default function Home() {
   ));
 
   return (
-    <main>
+    <main id="main-content">
+      <a className="skip-link" href="#about">跳到关于我</a>
       <div className="scroll-progress" style={{ transform: `scaleX(${scrollProgress / 100})` }} aria-hidden="true" />
       <div className="cursor-glow" aria-hidden="true" />
       <section className="hero" id="home">
@@ -262,12 +320,12 @@ export default function Home() {
           <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4" type="video/mp4" />
         </video>
         <div className="cinematic-gradient" /><div className="hero-glass glass-orb-one" /><div className="hero-glass glass-orb-two" />
-        <nav className="nav shell">
+        <nav className="nav shell" aria-label="主导航">
           <a className="cinematic-logo" href="#home" onClick={scrollToSection("home")} aria-label="返回首页">张顺富<sup>®</sup></a>
-          <div className={`nav-links ${menuOpen ? "menu-open" : ""}`}>
-            <a className={activeSection === "home" ? "active" : ""} href="#home" onClick={scrollToSection("home")}>首页</a><a className={activeSection === "work" ? "active" : ""} href="#work" onClick={scrollToSection("work")}>作品</a><a className={activeSection === "about" ? "active" : ""} href="#about" onClick={scrollToSection("about")}>关于</a><a className={activeSection === "strengths" ? "active" : ""} href="#strengths" onClick={scrollToSection("strengths")}>能力</a><a className={activeSection === "contact" ? "active" : ""} href="#contact" onClick={scrollToSection("contact")}>联系</a>
+          <div className={`nav-links ${menuOpen ? "menu-open" : ""}`} id="primary-navigation">
+            {navigationItems.map((item) => <a key={item.id} className={activeSection === item.id ? "active" : ""} aria-current={activeSection === item.id ? "page" : undefined} href={`#${item.id}`} onClick={scrollToSection(item.id)}>{item.label}</a>)}
           </div>
-          <button className={`menu-toggle ${menuOpen ? "open" : ""}`} onClick={()=>setMenuOpen(v=>!v)} aria-label={menuOpen?"关闭导航菜单":"打开导航菜单"} aria-expanded={menuOpen}><i/><i/></button>
+          <button ref={menuButtonRef} className={`menu-toggle ${menuOpen ? "open" : ""}`} onClick={()=>setMenuOpen(v=>!v)} aria-label={menuOpen?"关闭导航菜单":"打开导航菜单"} aria-expanded={menuOpen} aria-controls="primary-navigation"><i/><i/></button>
           <a className="journey-nav" href="#work" onClick={scrollToSection("work")}>开启探索</a>
         </nav>
         <div className="cinematic-hero shell">
@@ -281,7 +339,7 @@ export default function Home() {
         <header className="section-head"><span>01 / 关于</span><p>关于我</p></header>
         <div className="about-grid">
           <div className="portrait-wrap">
-            <img src="/zhang-shunfu-portrait.png" alt="张顺富个人形象照" />
+            <img src="/zhang-shunfu-portrait.png" alt="张顺富个人形象照" loading="lazy" decoding="async" />
             <div className="portrait-tag">开放合作<br />精选项目 <i /></div>
           </div>
           <div className="about-copy">
@@ -297,18 +355,18 @@ export default function Home() {
         <div className="stats">
           <div><strong>03</strong><span>个<br />专业方向</span></div>
           <div><strong>04</strong><span>步<br />设计流程</span></div>
-          <div><strong>01</strong><span>套<br />完整思考</span></div>
+          <div><strong>09</strong><span>组<br />精选作品</span></div>
           <div><strong>∞</strong><span>持续<br />探索可能</span></div>
         </div>
       </section>
 
       <section className="work section" id="work">
         <div className="shell"><header className="section-head" id="work-anchor"><span>02 / 精选作品</span><p>精选项目</p></header>
-          <div className="work-title"><h2>作品是思考<br />留下的<em>痕迹。</em></h2><div className="work-aside"><p><b>06</b> 组原创概念作品<br />从品牌、视觉到 AI 实验</p><div className="project-controls"><label className="project-search"><span aria-hidden="true">⌕</span><input ref={projectSearchRef} value={projectQuery} onChange={(event)=>setProjectQuery(event.target.value)} placeholder="查找作品" aria-label="查找作品" /><kbd>F</kbd></label><div className="project-filters" role="group" aria-label="项目分类">{["全部","品牌设计","视觉设计","AI 视觉"].map((item)=><button key={item} className={projectFilter===item?"active":""} onClick={()=>updateProjectFilter(item)}>{item}</button>)}</div></div></div></div>
-          <div className="project-grid" key={`${projectFilter}-${projectQuery}`}>{visibleProjects.map((p) => <a href={`/projects/${p.slug}`} className={`project ${p.className}`} key={p.index} aria-label={`查看项目：${p.title}`}>
-            <div className="project-image"><img src={p.image} alt={p.title} /><span className="view">查看<br />项目 ↗</span></div>
+          <div className="work-title"><h2>作品是思考<br />留下的<em>痕迹。</em></h2><div className="work-aside"><p><b>09</b> 组自主命题作品<br />从品牌、视觉到 AI 实验</p><div className="project-controls"><label className="project-search"><span aria-hidden="true">⌕</span><input ref={projectSearchRef} value={projectQuery} onChange={(event)=>setProjectQuery(event.target.value)} placeholder="查找作品" aria-label="查找作品" /><kbd>F</kbd></label><div className="project-filters" role="group" aria-label="项目分类">{projectFilters.map((item)=><button key={item} className={projectFilter===item?"active":""} aria-pressed={projectFilter===item} onClick={()=>updateProjectFilter(item)}><span>{item}</span><small>{String(projectCounts.get(item) ?? 0).padStart(2,"0")}</small></button>)}</div></div><span className="project-count" aria-live="polite">当前显示 {String(visibleProjects.length).padStart(2,"0")} 个作品</span></div></div>
+          <div className="project-grid" key={`${projectFilter}-${projectQuery}`}>{visibleProjects.map((p) => <Link href={`/projects/${p.slug}`} className={`project ${p.className}`} key={p.index} aria-label={`查看项目：${p.title}`}>
+            <div className="project-image"><i className="frame-corner corner-tl"/><i className="frame-corner corner-tr"/><i className="frame-corner corner-bl"/><i className="frame-corner corner-br"/><img src={p.image} alt={p.title} loading="lazy" decoding="async" /></div>
             <div className="project-meta"><span>{p.index}</span><h3>{p.title}</h3><p>{p.category}</p><small>{p.summary}</small></div>
-          </a>)}{visibleProjects.length === 0 && <div className="project-empty" role="status"><span>没有找到匹配的作品</span><p>试试更换分类，或使用更简短的关键词。</p><button type="button" onClick={() => { setProjectQuery(""); setProjectFilter("全部"); projectSearchRef.current?.focus(); }}>清除筛选</button></div>}</div>
+          </Link>)}{visibleProjects.length === 0 && <div className="project-empty" role="status"><span>没有找到匹配的作品</span><p>试试更换分类，或使用更简短的关键词。</p><button type="button" onClick={() => { setProjectQuery(""); setProjectFilter("全部"); projectSearchRef.current?.focus(); }}>清除筛选</button></div>}</div>
         </div>
       </section>
 

@@ -40,3 +40,15 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# Local Netlify folder
+.netlify
+
+# Generated deployment artifacts
+/public/*
+!/public/og.png
+!/public/case-studies/
+!/public/case-studies/*.png
+dev-server.log
+dev-server.err.log
+site-deploy.tar.gz
