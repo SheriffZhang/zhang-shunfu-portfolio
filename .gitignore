@@ -49,6 +49,9 @@ next-env.d.ts
 !/public/og.png
 !/public/case-studies/
 !/public/case-studies/*.png
+!/public/aigc-video/
+!/public/aigc-video/*.jpg
+!/public/aigc-video/*.mp4
 dev-server.log
 dev-server.err.log
 site-deploy.tar.gz

@@ -51,14 +51,14 @@
 .work-aside{display:grid;gap:22px;align-self:end;padding:0 0 3px 28px;border-left:1px solid rgba(44,65,78,.16)}
 .work-aside>p{margin:0!important;color:#667780!important;font-size:14px!important;line-height:1.85!important;letter-spacing:.025em!important}
 .work-aside>p b{display:inline-block;margin-right:7px;color:#1a2b35;font-size:clamp(22px,1.7vw,28px);font-weight:500;letter-spacing:-.04em}
-.work-aside .project-controls{display:grid;grid-template-columns:minmax(190px,.78fr) 1.22fr;align-items:center;gap:14px;margin:0!important}
+.work-aside .project-controls{display:grid;grid-template-columns:1fr;align-items:center;gap:12px;margin:0!important}
 .work-aside .project-search{width:100%!important;height:46px!important}
-.work-aside .project-filters{justify-content:flex-start!important;gap:7px!important}
-.work-aside .project-filters button{display:inline-flex;align-items:center;gap:8px;padding:9px 11px 9px 13px!important;font-size:11px!important}
+.work-aside .project-filters{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;justify-content:stretch!important;gap:0!important;overflow:hidden}
+.work-aside .project-filters button{display:inline-flex;min-width:0;align-items:center;justify-content:center;gap:8px;padding:12px 10px!important;font-size:10px!important;white-space:nowrap}
 .project-filters button small{min-width:19px;height:19px;display:inline-grid;place-items:center;border-radius:999px;background:rgba(30,43,51,.07);color:#77848c;font-size:9px;line-height:1;transition:background .25s ease,color .25s ease}
 .project-filters button.active small{background:rgba(255,255,255,.16);color:#fff}
 .project-count{justify-self:end;color:#829099;font-size:10px;letter-spacing:.08em}
-@media(max-width:940px){.work-title{grid-template-columns:1fr!important;gap:26px!important}.work-aside{padding:20px 0 0;border-top:1px solid rgba(44,65,78,.14);border-left:0}.work-aside .project-controls{grid-template-columns:minmax(230px,.75fr) 1fr}}
+@media(max-width:940px){.work-title{grid-template-columns:1fr!important;gap:26px!important}.work-aside{padding:20px 0 0;border-top:1px solid rgba(44,65,78,.14);border-left:0}}
 @media(max-width:620px){.work-aside .project-controls{grid-template-columns:1fr}.work-aside .project-filters{justify-content:flex-start!important}}
 
 /* Project filtering keeps visual continuity instead of replacing cards abruptly. */
@@ -91,3 +91,10 @@
 .project-filters button{border:0;border-right:1px solid rgba(22,31,36,.11);border-radius:0;background:transparent;padding:12px 16px;font-family:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;font-size:10px;letter-spacing:.04em;backdrop-filter:none}
 .project-filters button:last-child{border-right:0}.project-filters button:hover{background:rgba(24,31,35,.07);color:#111}.project-filters button.active{background:#172027;color:#fff}
 @media(max-width:760px){.project{padding:7px}.project .view{display:none}.project-filters{width:max-content}.project-meta{padding:14px 4px 5px}}
+
+/* AIGC work uses a restrained film marker; the frame remains the hero. */
+.video-chip{position:absolute;z-index:6;left:18px;bottom:18px;display:inline-flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid rgba(255,255,255,.34);border-radius:999px;background:rgba(13,19,23,.72);backdrop-filter:blur(14px) saturate(125%);-webkit-backdrop-filter:blur(14px) saturate(125%);color:#fff;font-family:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;font-size:9px;letter-spacing:.1em;box-shadow:0 8px 22px rgba(8,13,17,.2)}
+.video-chip>i{width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:7px solid currentColor}
+.project-video .project-image img{object-position:center}
+.project-video:hover .video-chip{background:rgba(255,255,255,.88);color:#172027}
+@media(max-width:620px){.work-aside .project-filters{grid-template-columns:repeat(2,minmax(0,1fr));width:100%}.work-aside .project-filters button:nth-child(2){border-right:0}.work-aside .project-filters button:nth-child(-n+2){border-bottom:1px solid rgba(22,31,36,.11)}.video-chip{left:12px;bottom:12px}}

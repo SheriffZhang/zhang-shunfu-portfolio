@@ -3,19 +3,28 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
-const projects = [
-  {slug:"fluid-signal",group:"AI 视觉",index:"01",title:"FLUID SIGNAL",category:"AI 视觉传播 · 自主命题作品",summary:"将液态玻璃生成语言整理为适用于大屏、社交媒体和网页的传播系统。",image:"/case-studies/fluid-signal-applications.png",className:"project-wide"},
-  {slug:"lumen-brand-system",group:"品牌设计",index:"02",title:"LUMEN",category:"未来品牌系统 · 自主命题作品",summary:"以“光是信息的入口”为概念，建立标识、版式、材质与数字触点。",image:"/case-studies/lumen-applications.png",className:""},
-  {slug:"yemu-tea-packaging",group:"品牌设计",index:"03",title:"YEMU",category:"当代茶礼包装 · 自主命题作品",summary:"面向年轻礼赠场景，建立礼盒、茶罐、独立袋和手提袋的包装家族。",image:"/case-studies/yemu-packaging-applications.png",className:""},
-  {slug:"ai-visual-lab",group:"AI 视觉",index:"04",title:"AI 创意视觉探索",category:"生成式视觉 · 材质实验",summary:"围绕透明、流动与折射进行生成实验，形成一组未来感数字主视觉。",image:"/projects/ai-visual-exploration.png",className:"project-wide"},
-  {slug:"future-brand-system",group:"品牌设计",index:"05",title:"品牌视觉系统设计",category:"品牌主视觉 · 几何系统",summary:"以几何标识、冷白空间和钴蓝强调色建立克制、理性的视觉秩序。",image:"/projects/brand-visual-system.png",className:""},
+type PortfolioProject = {
+  slug: string; group: string; index: string; title: string; category: string;
+  summary: string; image: string; className: string; video?: string;
+};
+
+const projects: PortfolioProject[] = [
+  {slug:"fluid-signal",group:"视觉设计",index:"01",title:"FLUID SIGNAL",category:"AI 视觉传播 · 自主命题作品",summary:"将液态玻璃生成语言整理为适用于大屏、社交媒体和网页的传播系统。",image:"/case-studies/fluid-signal-applications.png",className:"project-wide"},
+  {slug:"lumen-brand-system",group:"视觉设计",index:"02",title:"LUMEN",category:"未来品牌系统 · 自主命题作品",summary:"以“光是信息的入口”为概念，建立标识、版式、材质与数字触点。",image:"/case-studies/lumen-applications.png",className:""},
+  {slug:"yemu-tea-packaging",group:"视觉设计",index:"03",title:"YEMU",category:"当代茶礼包装 · 自主命题作品",summary:"面向年轻礼赠场景，建立礼盒、茶罐、独立袋和手提袋的包装家族。",image:"/case-studies/yemu-packaging-applications.png",className:""},
+  {slug:"ai-visual-lab",group:"视觉设计",index:"04",title:"AI 创意视觉探索",category:"生成式视觉 · 材质实验",summary:"围绕透明、流动与折射进行生成实验，形成一组未来感数字主视觉。",image:"/projects/ai-visual-exploration.png",className:"project-wide"},
+  {slug:"future-brand-system",group:"视觉设计",index:"05",title:"品牌视觉系统设计",category:"品牌主视觉 · 几何系统",summary:"以几何标识、冷白空间和钴蓝强调色建立克制、理性的视觉秩序。",image:"/projects/brand-visual-system.png",className:""},
   {slug:"digital-narrative-space",group:"视觉设计",index:"06",title:"数字传播视觉设计",category:"跨屏视觉 · 信息编排",summary:"围绕网页、移动端与社媒切片，梳理跨屏内容的阅读节奏和视觉层级。",image:"/projects/digital-communication-system.png",className:""},
   {slug:"cultural-poster-series",group:"视觉设计",index:"07",title:"城市记忆海报计划",category:"系列海报 · 城市叙事",summary:"以城市影像、粗粝纹理和朱红结构，完成一组具有展览感的系列海报。",image:"/projects/cultural-poster-series.png",className:"project-wide"},
-  {slug:"tea-packaging-system",group:"品牌设计",index:"08",title:"自然茶品牌包装",category:"包装视觉 · 自然材质",summary:"从茶芽、纸张肌理和礼赠场景出发，构建自然克制的包装视觉方向。",image:"/projects/tea-packaging-system.png",className:""},
-  {slug:"motion-identity",group:"AI 视觉",index:"09",title:"生成式动态识别",category:"动态视觉 · 形态实验",summary:"用金属形态、粒子轨迹和循环规则，探索可运动、可拆分的动态识别语言。",image:"/projects/motion-identity.png",className:""},
+  {slug:"tea-packaging-system",group:"视觉设计",index:"08",title:"自然茶品牌包装",category:"包装视觉 · 自然材质",summary:"从茶芽、纸张肌理和礼赠场景出发，构建自然克制的包装视觉方向。",image:"/projects/tea-packaging-system.png",className:""},
+  {slug:"motion-identity",group:"视觉设计",index:"09",title:"生成式动态识别",category:"动态视觉 · 形态实验",summary:"用金属形态、粒子轨迹和循环规则，探索可运动、可拆分的动态识别语言。",image:"/projects/motion-identity.png",className:""},
+  {slug:"ai-three-doors",group:"网站设计",index:"10",title:"先用一次｜AI 三扇门",category:"AI 产品网站 · 真实上线项目",summary:"为第一次使用 AI 的人设计三条低门槛起步路径，把抽象能力转化为可以立即完成的小事。",image:"/case-studies/ai-three-doors-home.png",className:"project-wide"},
+  {slug:"confucian-scholar-pv",group:"AIGC 视频",index:"11",title:"儒生新纪",category:"AIGC 游戏 PV · 角色概念",summary:"以古典儒生为角色核心，将东方服饰、月相与现代城市线稿组织成 15 秒概念短片。",image:"/aigc-video/confucian-scholar-poster.jpg",video:"/aigc-video/confucian-scholar.mp4",className:"project-video"},
+  {slug:"break-the-seal-pv",group:"AIGC 视频",index:"12",title:"破印",category:"AIGC 游戏 PV · 世界观预告",summary:"围绕封印、太极与都市异象建立黑绿视觉节奏，完成一支具有悬念感的游戏预告片。",image:"/aigc-video/break-the-seal-poster.jpg",video:"/aigc-video/break-the-seal.mp4",className:"project-video"},
+  {slug:"minimax-h3-pv",group:"AIGC 视频",index:"13",title:"H3 · 蓝钥计划",category:"AIGC 游戏 PV · 风格实验",summary:"用高对比蓝黑白图形、角色切片与钥匙符号，探索平面动画式的游戏视觉表达。",image:"/aigc-video/minimax-h3-poster.jpg",video:"/aigc-video/minimax-h3.mp4",className:"project-video"},
 ];
 
-const projectFilters = ["全部", "品牌设计", "视觉设计", "AI 视觉"];
+const projectFilters = ["全部", "视觉设计", "网站设计", "AIGC 视频"];
 const navigationItems = [
   { id: "home", label: "首页" },
   { id: "about", label: "关于" },
@@ -355,18 +364,18 @@ export default function Home() {
         <div className="stats">
           <div><strong>03</strong><span>个<br />专业方向</span></div>
           <div><strong>04</strong><span>步<br />设计流程</span></div>
-          <div><strong>09</strong><span>组<br />精选作品</span></div>
+          <div><strong>13</strong><span>组<br />精选作品</span></div>
           <div><strong>∞</strong><span>持续<br />探索可能</span></div>
         </div>
       </section>
 
       <section className="work section" id="work">
         <div className="shell"><header className="section-head" id="work-anchor"><span>02 / 精选作品</span><p>精选项目</p></header>
-          <div className="work-title"><h2>作品是思考<br />留下的<em>痕迹。</em></h2><div className="work-aside"><p><b>09</b> 组自主命题作品<br />从品牌、视觉到 AI 实验</p><div className="project-controls"><label className="project-search"><span aria-hidden="true">⌕</span><input ref={projectSearchRef} value={projectQuery} onChange={(event)=>setProjectQuery(event.target.value)} placeholder="查找作品" aria-label="查找作品" /><kbd>F</kbd></label><div className="project-filters" role="group" aria-label="项目分类">{projectFilters.map((item)=><button key={item} className={projectFilter===item?"active":""} aria-pressed={projectFilter===item} onClick={()=>updateProjectFilter(item)}><span>{item}</span><small>{String(projectCounts.get(item) ?? 0).padStart(2,"0")}</small></button>)}</div></div><span className="project-count" aria-live="polite">当前显示 {String(visibleProjects.length).padStart(2,"0")} 个作品</span></div></div>
+          <div className="work-title"><h2>作品是思考<br />留下的<em>痕迹。</em></h2><div className="work-aside"><p><b>13</b> 组精选作品<br />视觉设计、网站与 AIGC 动态影像</p><div className="project-controls"><label className="project-search"><span aria-hidden="true">⌕</span><input ref={projectSearchRef} value={projectQuery} onChange={(event)=>setProjectQuery(event.target.value)} placeholder="查找作品" aria-label="查找作品" /><kbd>F</kbd></label><div className="project-filters" role="group" aria-label="项目分类">{projectFilters.map((item)=><button key={item} className={projectFilter===item?"active":""} aria-pressed={projectFilter===item} onClick={()=>updateProjectFilter(item)}><span>{item}</span><small>{String(projectCounts.get(item) ?? 0).padStart(2,"0")}</small></button>)}</div></div><span className="project-count" aria-live="polite">当前显示 {String(visibleProjects.length).padStart(2,"0")} 个作品</span></div></div>
           <div className="project-grid" key={`${projectFilter}-${projectQuery}`}>{visibleProjects.map((p) => <Link href={`/projects/${p.slug}`} className={`project ${p.className}`} key={p.index} aria-label={`查看项目：${p.title}`}>
-            <div className="project-image"><i className="frame-corner corner-tl"/><i className="frame-corner corner-tr"/><i className="frame-corner corner-bl"/><i className="frame-corner corner-br"/><img src={p.image} alt={p.title} loading="lazy" decoding="async" /></div>
+            <div className="project-image"><i className="frame-corner corner-tl"/><i className="frame-corner corner-tr"/><i className="frame-corner corner-bl"/><i className="frame-corner corner-br"/><img src={p.image} alt={p.title} loading="lazy" decoding="async" />{p.video&&<span className="video-chip" aria-hidden="true"><i/>15 SEC</span>}</div>
             <div className="project-meta"><span>{p.index}</span><h3>{p.title}</h3><p>{p.category}</p><small>{p.summary}</small></div>
-          </Link>)}{visibleProjects.length === 0 && <div className="project-empty" role="status"><span>没有找到匹配的作品</span><p>试试更换分类，或使用更简短的关键词。</p><button type="button" onClick={() => { setProjectQuery(""); setProjectFilter("全部"); projectSearchRef.current?.focus(); }}>清除筛选</button></div>}</div>
+          </Link>)}{visibleProjects.length === 0 && <div className="project-empty" role="status"><span>{projectFilter === "AIGC 视频" && !projectQuery ? "AIGC 视频作品即将加入" : "没有找到匹配的作品"}</span><p>{projectFilter === "AIGC 视频" && !projectQuery ? "这里将收录生成式影像、动态短片与 AI 视频实验。" : "试试更换分类，或使用更简短的关键词。"}</p><button type="button" onClick={() => { setProjectQuery(""); setProjectFilter("全部"); projectSearchRef.current?.focus(); }}>{projectFilter === "AIGC 视频" && !projectQuery ? "浏览现有作品" : "清除筛选"}</button></div>}</div>
         </div>
       </section>
 
